@@ -10,10 +10,9 @@ class Point2D:
         return f"x: {self.x}, y: {self.y}"
 
 
-class Point3D:
+class Point3D(Point2D):
     def __init__(self, x: int, y: int, z: int) -> None:
-        self.x = x
-        self.y = y
+        super().__init__(x, y)
         self.z = z
 
     def __str__(self) -> str:
