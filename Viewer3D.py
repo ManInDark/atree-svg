@@ -9,6 +9,9 @@ class Point2D:
     def __repr__(self) -> str:
         return f"x: {self.x}, y: {self.y}"
 
+    def pathPrint(self, prefix: str) -> str:
+        return f"{prefix} {self.x}, {self.y}"
+
 
 class Point3D(Point2D):
     def __init__(self, x: int, y: int, z: int) -> None:
@@ -23,7 +26,7 @@ class Point3D(Point2D):
 
 
 class Plane:
-    def __init__(self, p: Point3D, z_dimension: int, y_dimension: int) -> None:
+    def __init__(self, p: Point3D, y_dimension: int, z_dimension: int) -> None:
         self.point = p
         self.width = z_dimension
         self.height = y_dimension
@@ -39,15 +42,17 @@ class Plane:
 
 
 class OutOfView(Exception):
-    def __init__(self, direction: str, *args: object) -> None:
+    def __init__(self, direction: str, location: int, range: str, *args: object) -> None:
         super().__init__(*args)
         self.direction = direction
+        self.location = location
+        self.range = range
 
     def __str__(self) -> str:
-        return f"Point didn't fit in {self.direction}-direction"
+        return f"Point didn't fit in {self.direction}-direction: {self.location} out of {self.range}"
 
     def __repr__(self) -> str:
-        return f"Point didn't fit in {self.direction}-direction"
+        return f"Point didn't fit in {self.direction}-direction: {self.location} out of {self.range}"
 
 
 class Viewer3D:
@@ -60,12 +65,12 @@ class Viewer3D:
     def see(self, p: Point3D) -> Point2D:
         my = (self.eye.y - p.y) / (self.eye.x - p.x)
         mz = (self.eye.z - p.z) / (self.eye.x - p.x)
-        y = self.eye.y + my * self.eye_plane_distance
-        if not (y >= self.plane.point.y and y < self.plane.point.y + self.plane.height):
-            raise OutOfView("y")
-        z = self.eye.z + mz * self.eye_plane_distance
-        if not (z >= self.plane.point.z and z < self.plane.point.z + self.plane.width):
-            raise OutOfView("z")
+        y = self.eye.y + my * self.eye_plane_distance - self.plane.point.y
+        if not (y >= 0 and y < self.plane.height):
+            raise OutOfView("y", y, f"{0}..{self.plane.height}")
+        z = self.eye.z + mz * self.eye_plane_distance - self.plane.point.z
+        if not (z >= 0 and z < self.plane.width):
+            raise OutOfView("z", z, f"{0}..{self.plane.width}")
         return Point2D(z, y)
 
     def translatePoint(self, p: Point2D) -> Point2D:
