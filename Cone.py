@@ -43,9 +43,5 @@ if __name__ == "__main__":
     s = ''
     for e in list:
         s += e.pathPrint("L") + " "
-    print("<style> path {\n  d: path('" + s.replace("L", "M", 1) + "'); stroke-linecap: round; } </style>")
-    print('<svg width="80" height="100">')
-    print('<path stroke="blue"  stroke-width="1px" fill="none" stroke-dashoffset="0" stroke-dasharray="2 4" />')
-    print('<path stroke="red"   stroke-width="1px" fill="none" stroke-dashoffset="2" stroke-dasharray="2 4" />')
-    print('<path stroke="green" stroke-width="1px" fill="none" stroke-dashoffset="4" stroke-dasharray="2 4" />')
-    print('</svg>')
+    print("<style>\n  path {\n    d: path('" + s.replace("L", "M", 1) + "');\n    stroke-linecap: round;\n    animation: a 2s linear 0s infinite forwards;\n  }\n\n  @keyframes a {\n    to {\n      stroke-dashoffset: -8;\n    }\n  }\n</style>")
+    print('<svg width="80" height="100">\n  <path stroke="green" stroke-width="1px" fill="none" stroke-dasharray="4 4" />\n</svg>')
