@@ -45,12 +45,13 @@ if __name__ == "__main__":
         return list
     list_1 = c_list(v, Cone(Point3D(100, 6, 0), 30, 100, 200, 4, offset=pi))
     list_2 = c_list(v, Cone(Point3D(100, 6, 0), 30, 100, 200, 4))
-    s = ''
+    s_1 = ''
     for e in list_1:
-        s += e.pathPrint("L") + " "
-    s += list_2[0].pathPrint("M") + " "
-    for n in range(1, len(list_2)):
-        s += list_2[n].pathPrint("L") + " "
-    print("<style>\n  path {\n    d: path('" + s.replace("L", "M", 1) + "');\n    stroke-linecap: round;\n    animation: a 2s linear 0s infinite forwards;\n  }\n\n  @keyframes a {\n    to {\n      stroke-dashoffset: -8;\n    }\n  }\n</style>")
-    print('<svg width="80" height="100">\n  <path stroke="green" stroke-width="1px" fill="none" stroke-dasharray="4 4" />\n</svg>')
-    # Add second rotated line for two seperate lines
+        s_1 += e.pathPrint("L") + " "
+    s_2 = ''
+    for e in list_2:
+        s_2 += e.pathPrint("L") + " "
+    print("<style>path:nth-child(1){d:path('"+s_1.replace("L", "M", 1)+"');}")
+    print("path:nth-child(2){d:path('" + s_2.replace("L", "M", 1) + "');}")
+    print("path{stroke-linecap:round;animation: a 2s linear 0s infinite forwards;stroke-dasharray: 4 4;fill: none;stroke-width:1px}@keyframes a {to{stroke-dashoffset:-8;}}</style>")
+    print('<svg width="80" height="100"><path stroke="cyan"/><path stroke="red"/></svg>')
