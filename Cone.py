@@ -1,17 +1,17 @@
+from Object import Object, OutOfPoints
 from Viewer3D import Plane, Point3D, Viewer3D
 from math import sin, cos, pi
 
 
-class OutOfPoints(Exception):
-    pass
+class Cone(Object):
 
-
-class Cone:
+    """
+    Draws a line in circles around the cone from bottom to top.
+    """
 
     def __init__(self, starting_point: Point3D, radius: int, height: int, points: int, rounds: int, offset: int = 0) -> None:
-        self.starting_point = starting_point
+        super().__init__(starting_point, points)
         self.radius = radius
-        self.points = points
         # Offsets per point
         self.offset = offset
         self.rad_offset_point = 2 * pi * rounds / points
