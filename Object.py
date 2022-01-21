@@ -15,6 +15,7 @@ class Object(metaclass=ABCMeta):
     def __init__(self, starting_point: Point3D, points: int) -> None:
         self.starting_point = starting_point
         self.points = points
+        self.point = 0
 
     @abstractmethod
     def nextPoint(self) -> Point3D:

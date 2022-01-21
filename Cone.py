@@ -11,22 +11,21 @@ class Cone(Object):
 
     def __init__(self, starting_point: Point3D, radius: int, height: int, points: int, rounds: int, offset: int = 0) -> None:
         super().__init__(starting_point, points)
-        self.radius = radius
+        self.__radius = radius
         # Offsets per point
-        self.offset = offset
-        self.rad_offset_point = 2 * pi * rounds / points
-        self.height_offset_point = height / points
-        self.point = 0
+        self.__offset = offset
+        self.__rad_offset_point = 2 * pi * rounds / points
+        self.__height_offset_point = height / points
 
     def nextPoint(self) -> Point3D:
         if self.point >= self.points:
             raise OutOfPoints()
         pt = Point3D(
-            self.starting_point.x + round(sin(self.rad_offset_point * self.point + self.offset) *
-                                          self.radius * ((self.points - self.point) / self.points), 0),
-            self.starting_point.y + self.height_offset_point * self.point,
-            self.starting_point.z + round(cos(self.rad_offset_point * self.point + self.offset) *
-                                          self.radius * ((self.points - self.point) / self.points), 0),
+            self.starting_point.x + round(sin(self.__rad_offset_point * self.point + self.__offset) *
+                                          self.__radius * ((self.points - self.point) / self.points), 0),
+            self.starting_point.y + self.__height_offset_point * self.point,
+            self.starting_point.z + round(cos(self.__rad_offset_point * self.point + self.__offset) *
+                                          self.__radius * ((self.points - self.point) / self.points), 0),
         )
         self.point += 1
         return pt
