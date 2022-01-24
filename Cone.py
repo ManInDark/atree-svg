@@ -50,7 +50,7 @@ if __name__ == "__main__":
     s_2 = ''
     for e in list_2:
         s_2 += e.pathPrint("L") + " "
-    print("<style>path:nth-child(1){d:path('"+s_1.replace("L", "M", 1)+"');}")
+    print("<style>body{margin:0px;}  path:nth-child(1){d:path('"+s_1.replace("L", "M", 1)+"');}")
     print("path:nth-child(2){d:path('" + s_2.replace("L", "M", 1) + "');}")
     print("path{stroke-linecap:round;animation: a 2s linear 0s infinite forwards;stroke-dasharray: 4 4;fill: none;stroke-width:1px}@keyframes a {to{stroke-dashoffset:-8;}}</style>")
-    print('<svg width="80" height="100"><path stroke="cyan"/><path stroke="red"/></svg>')
+    print('<svg viewBox="0 0 80 100" height="100vh"><path stroke="cyan"/><path stroke="red"/></svg>')
