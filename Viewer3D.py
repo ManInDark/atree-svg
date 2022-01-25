@@ -67,10 +67,10 @@ class Viewer3D:
             my = (self.eye.y - p.y) / (self.eye.x - p.x)
             mz = (self.eye.z - p.z) / (self.eye.x - p.x)
             y = self.eye.y + my * self.eye_plane_distance - self.plane.point.y
-            if not (y >= 0 and y < self.plane.height):
+            if not (y >= 0 and y <= self.plane.height):
                 raise OutOfView("y", y, f"{0}..{self.plane.height}")
             z = self.eye.z + mz * self.eye_plane_distance - self.plane.point.z
-            if not (z >= 0 and z < self.plane.width):
+            if not (z >= 0 and z <= self.plane.width):
                 raise OutOfView("z", z, f"{0}..{self.plane.width}")
             return Point2D(z, y)
         except ZeroDivisionError:
