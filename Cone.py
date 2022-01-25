@@ -34,7 +34,7 @@ class Cone(Object):
 if __name__ == "__main__":
     v = Viewer3D(Point3D(0, 50, 0), Plane(Point3D(70, 0, -40), 100, 80))
 
-    def c_list(v: Viewer3D, c: Cone):
+    def c_list(v: Viewer3D, c: Object):
         list = []
         while True:
             try:
