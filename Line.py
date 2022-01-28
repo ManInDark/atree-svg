@@ -11,15 +11,14 @@ class Line(Object):
     def __init__(self, starting_point: Point3D, points: int, end_point: Point3D) -> None:
         super().__init__(starting_point, points)
         self.end_point = end_point
-        self.__x_diff = (self.end_point.x - self.starting_point.x) / (self.points - 1)
-        self.__y_diff = (self.end_point.y - self.starting_point.y) / (self.points - 1)
-        self.__z_diff = (self.end_point.z - self.starting_point.z) / (self.points - 1)
+        self.starting_point = starting_point
 
     def nextPoint(self) -> Point3D:
-        if self.point >= self.points:
+        pt: Point3D = self.starting_point
+        if self.point == 1:
+            pt = self.end_point
+        elif self.point > 1:
             raise OutOfPoints()
-        pt = Point3D(self.point * self.__x_diff + self.starting_point.x, self.point * self.__y_diff +
-                     self.starting_point.y, self.point * self.__z_diff + self.starting_point.z)
         self.point += 1
         return pt
 
