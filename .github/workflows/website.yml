@@ -25,13 +25,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Create Page
-        run: python Cone.py > index.html
+        run: |
+        mkdir page-files
+        python Cone.py > page-files/index.html
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "./index.html"
+          path: "./page-files"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
